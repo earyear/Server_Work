@@ -1,0 +1,18 @@
+[TodoList 미니 프로젝트 api 명세서]
+
+번호  기능          컨트롤러                 url주소            동작방식        뷰
+1    목록         todolistController    /todo/list          get        /WEB-INF/todo/todoList.jsp
+2    등록 폼      todoRegController    /todo/register       get        /WEB-INF/todo/todoList.jsp
+3    등록 처리     todoRegController    /todo/register       get        /WEB-INF/todo/todoList.jsp
+4    조회         todoReadController    /todo/read          post        /WEB-INF/todo/todoList.jsp
+
+
+
+
+PRG패턴(Post-Redirect-Get)
+
+MVC
+모델 DTO
+1.DTO[Data Transfer Object],데이터 전달용으로 사용하는 모델 클래스
+2.VO[Value Object], 비즈니스 모델, 실제 DB의 컬럼의 내용과 동일
+3.DAO[Data Access Object], 실제로 쿼리를 작성해 디비서버 전달
