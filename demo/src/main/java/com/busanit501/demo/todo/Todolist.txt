@@ -1,11 +1,13 @@
 [TodoList 미니 프로젝트 api 명세서]
 
-번호  기능          컨트롤러                 url주소            동작방식        뷰
-1    목록         todolistController    /todo/list          get        /WEB-INF/todo/todoList.jsp
-2    등록 폼      todoRegController    /todo/register       get        /WEB-INF/todo/todoList.jsp
-3    등록 처리     todoRegController    /todo/register       get        /WEB-INF/todo/todoList.jsp
-4    조회         todoReadController    /todo/read          post        /WEB-INF/todo/todoList.jsp
-
+번호  기능          컨트롤러                 url주소          동작방식        뷰
+1    목록         TodolistController    /todo/list          get        /WEB-INF/todo/todoList.jsp
+2    등록 폼      TodoRegController    /todo/register       get        /WEB-INF/todo/todoReg.jsp
+3    등록 처리     TodoRegController    /todo/register       get        리다이렉트(리스트화면)
+4    조회         TodoReadController    /todo/read          post        /WEB-INF/todo/todoRead.jsp
+5    수정(폼)    TodoUpdateController   /todo/update        get     /WEB-INF/todo/todoUpd.jsp
+6    수정(처리)    TodoUpdateController   /todo/update      post     리다이렉트(리스트화면)
+7    삭제(처리)    TodoDeleteController   /todo/delete      post     리다이렉트(리스트화면)
 
 
 

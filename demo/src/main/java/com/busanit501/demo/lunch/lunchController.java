@@ -13,6 +13,7 @@ public class lunchController extends HttpServlet {
 
     //get >폼화면 그려줌(로그인 화면), post > 화면처리(로그인 처리)
 
+
     //컨트롤러: 화면페이지로 안내 > 화면 전달.
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
