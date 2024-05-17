@@ -10,7 +10,6 @@ public class TodoDTO {
     private boolean cheak;
 
 
-
     public long getTno() {
         return tno;
     }
