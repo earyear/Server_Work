@@ -5,6 +5,7 @@ import com.busanit501.demo.todo.domain.TodoVo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class TodoDAOTest {
@@ -46,6 +47,38 @@ public class TodoDAOTest {
 
         System.out.println("원하는 값 : "+todoVo);
     }
+
+    //삽입
+    @Test
+    public void insertTest() throws Exception{
+        TodoVo todoVo = TodoVo.builder()
+                .title("오늘 점심 뭐?")
+                .dueDate(LocalDate.of(22,04,30))
+                .finished(false)
+                .build();
+
+        todoDAO.insert(todoVo);
+    }
+
+    //수정
+    @Test
+    public void updateTest() throws Exception{
+        TodoVo todoVo = TodoVo.builder()
+                .finished(false)
+                .tno(3L)
+                .title("샘플3번수정")
+                .build();
+
+        todoDAO.update(todoVo);
+    }
+
+    //삭제
+    @Test
+    public void deleteTest() throws Exception{
+        todoDAO.delete(5L);
+    }
+
+
 
 
 

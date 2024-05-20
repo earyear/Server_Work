@@ -3,10 +3,7 @@ package com.busanit501.demo.todo.dao;
 import com.busanit501.demo.todo.domain.TodoVo;
 import lombok.Cleanup;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +90,51 @@ public class TodoDAO {
 
         return todoVo;
     }
+
+    //삽입 insert (DTO > VO 변환 > Vo에 해당 데이터베이스 입력, DAO에 직접적인 DB에 넣는 타임은 VO로 진행함.)
+    public void insert(TodoVo Vo) throws Exception{
+        String sql="insert into tbl_todo (title, dueDate, finished) values (?,?,?)";
+
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement pstmt = connection.prepareStatement(sql);
+
+        pstmt.setString(1, Vo.getTitle());
+        pstmt.setDate(2, Date.valueOf(Vo.getDueDate()));
+        pstmt.setBoolean(3, Vo.isFinished());
+
+        pstmt.executeUpdate(); //insert, update, delete 시에는 executeUpdate 사용
+
+    }
+
+    //수정 update()
+    public void update(TodoVo Vo) throws Exception{
+        String sql="update tbl_todo set finished=?, title=? where tno=?";
+
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement pstmt = connection.prepareStatement(sql);
+
+        pstmt.setBoolean(1, Vo.isFinished());
+        pstmt.setString(2, Vo.getTitle());
+        pstmt.setLong(3, Vo.getTno());
+
+        pstmt.executeUpdate(); //insert, update, delete 시에는 executeUpdate 사용
+    }
+
+    //삭제 delete
+    public void delete(Long tno) throws Exception{
+        String sql="delete from tbl_todo where tno=?";
+
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement pstmt = connection.prepareStatement(sql);
+
+        pstmt.setLong(1, tno);
+
+        pstmt.executeUpdate(); //insert, update, delete 시에는 executeUpdate 사용
+
+    }
+
+
+
 
     //혼자한거(gpt) 한개만 가져옴
     public String selectOne(){

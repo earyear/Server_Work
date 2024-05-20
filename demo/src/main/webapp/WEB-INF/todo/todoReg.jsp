@@ -13,7 +13,15 @@
 <body>
 <h1>임시 todoReg화면</h1>
 <form method="post" action="/todo/register">
+    <div>
+        <input type=text name="title" placeholder="제목을 입력해주세요.">
+    </div>
+
+    <div>
+        <input type=date name="dueDate">
+    </div>
     <button type="submit">작성</button>
+    <button type="reset">초기화</button>
 </form>
 </body>
 </html>
