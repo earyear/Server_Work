@@ -54,13 +54,27 @@ public enum TodoService {
         return DTOList;
     }
 
+    //한개 조회
+    public TodoDTO selectone(Long tno) throws Exception{
+        TodoVo vo = todoDAO.selectONE(tno);
+        TodoDTO dto = modelMapper.map(vo, TodoDTO.class);
+        return dto;
+    }
+
+    //수정
+    public void update(TodoDTO todoDTO) throws Exception{
+        TodoVo vo = modelMapper.map(todoDTO, TodoVo.class);
+        todoDAO.update(vo);  //실제에도 적용.
+    }
+
+    //삭제
+    public void delete(Long tno) throws Exception{
+        todoDAO.delete(tno);
+    }
 
 
 
-
-
-
-
+//0520 이전의 임시 리스트를 생성하는 코드
     public void register(TodoDTO dto){
         System.out.println("debug register dto 확인중 :" + dto);
     }

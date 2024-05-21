@@ -10,15 +10,13 @@
 <%--EL 표기법으로 \${사용할 변수의 키}, ex(key 이름 : list)--%>
 <%--${list}--%>
 <br>
-<h2>
-    ${list[0].tno}
-    ${list[0].title}
-    ${list[0].dueDate}
-</h2>
 
 <ul>
     <c:forEach var="dto" items="${list}">
         <li>
+                <span>
+                    <a href="/todo/read?tno=${dto.tno}">${dto.tno}</a>
+                </span>
                 ${dto}
         </li>
     </c:forEach>

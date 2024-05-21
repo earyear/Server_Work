@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>menuInput-jsp</title>
+    <title>memberInput-jsp</title>
 </head>
 <body>
 <form action="/memberinput" method="post">

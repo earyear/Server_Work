@@ -1,4 +1,4 @@
-package com.busanit501.demo.lunch;
+package com.busanit501.demo.lunch.controller;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

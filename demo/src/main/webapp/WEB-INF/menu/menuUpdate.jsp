@@ -1,44 +1,34 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: it
-  Date: 2024-05-14
-  Time: 오후 4:06
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>JSP-update</title>
 </head>
 <body>
-<h1>임시 todoUpdate화면</h1>
+<h1>MenuUpdate화면</h1>
 
 <%--수정--%>
-<form method="post" action="/todo/update">
+<form method="post" action="/menuUpdate">
     <div>
-        <input type="text" name="title" placeholder="제목을 입력해주세요." value="${sample.title}" >
+        <input type="text" name="name" placeholder="메뉴를 입력해주세요." value="${menu.name}" >
     </div>
     <div>
-        <input type="date" name="dueDate" value="${sample.dueDate}" >
+        <input type="date" name="dueDate" value="${menu.dueDate}" >
     </div>
     <div>
-        <input type="checkbox" name="finished" ${sample.finished ? "checked":""} >
-    </div>
-    <div>
-        <input type="hidden" name="tno" value="${sample.tno}">
+        <input type="hidden" name="no" value="${menu.no}">
         <button type="submit">수정하기</button>
     </div>
 </form>
 
 <%--삭제--%>
-<form method="post" action="/todo/delete">
+<form method="post" action="/menuDelete">
     <%--  화면에는 안보임. --%>
-    <input type="hidden" name="tno" value="${sample.tno}">
+    <input type="hidden" name="no" value="${menu.no}">
     <button type="submit">삭제하기</button>
 </form>
 
 <%--전체 리스트보기--%>
-<form method="get" action="/todo/list">
+<form method="get" action="/menulist">
     <button type="submit">전체메뉴</button>
 </form>
 

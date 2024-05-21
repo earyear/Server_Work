@@ -1,4 +1,7 @@
-package com.busanit501.demo.lunch;
+package com.busanit501.demo.lunch.controller;
+
+import com.busanit501.demo.lunch.dto.MenuDTO;
+import com.busanit501.demo.lunch.service.MenuService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -7,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 
 @WebServlet(name = "MenuInputController", urlPatterns = "/menuinput")
 public class MenuInputController extends HttpServlet {
@@ -20,10 +24,20 @@ public class MenuInputController extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    // 입력 받은 메뉴를 , 데이터 베이스에 저장.
-    
-    // 단순, 메인 메뉴 로 이동.
-    resp.sendRedirect("/lunchMenu");
+
+    MenuDTO menuDTO = MenuDTO.builder()
+            .name(req.getParameter("menu"))
+            .dueDate(LocalDate.parse(req.getParameter("dueDate")))
+            .build();
+
+      //입력 받은 값 넣기
+      try {
+          MenuService.INSTANCE.insert(menuDTO);
+          resp.sendRedirect("/menulist");
+      } catch (Exception e) {
+          throw new RuntimeException(e);
+      }
+
   }
 }
 

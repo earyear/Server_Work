@@ -13,6 +13,9 @@
 <body>
 <form action="/menuinput" method="post">
     <input type="text" name="menu" value="먹고싶은 메뉴입력">
+    <div>
+        <input type=date name="dueDate">
+    </div>
     <%--    <input type="number" name="num2">--%>
     <button type="submit">전송</button>
 </form>

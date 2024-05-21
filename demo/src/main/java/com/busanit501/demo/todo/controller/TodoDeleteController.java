@@ -1,5 +1,7 @@
 package com.busanit501.demo.todo.controller;
 
+import com.busanit501.demo.todo.service.TodoService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,13 @@ public class TodoDeleteController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Long tno = Long.valueOf(req.getParameter("tno"));
+        try {
+            TodoService.INSTANCE.delete(tno);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         resp.sendRedirect("/todo/list");
     }
 }

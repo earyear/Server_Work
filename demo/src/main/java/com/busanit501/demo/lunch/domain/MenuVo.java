@@ -4,7 +4,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Setter
+//@Setter  DTO에서 이미 setter했기에 필요없음.
 @Getter
 @Builder
 @ToString

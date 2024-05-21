@@ -9,7 +9,8 @@ import java.util.List;
 
 public class TodoDAO {
 
-    //자동 반납
+    //디비에 직접적인 비즈니스 로직 처리하는 기능 만듬(DAO의 역할)
+    //방법 1) 자동 반납 및 자동 예외처리
     public String getTime2() throws Exception{
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
@@ -20,10 +21,10 @@ public class TodoDAO {
         return now;
     }
 
-    //디비에 직접적인 비즈니스 로직 처리하는 기능 만듬
+    //방법 2) try-catch로 예외처리 후 반납
     public String getTime(){
         //HikariCP 이용해, 디비 연결하는 도구
-//        Connection conn = ConnectionUtil.INSTANCE.getConnection();
+        //Connection conn = ConnectionUtil.INSTANCE.getConnection();
         //예외처리 3가지 방식 1)try catch finally 2)throws 3)resource
 
         String now = null;
@@ -50,7 +51,7 @@ public class TodoDAO {
         List<TodoVo> list = new ArrayList<>();
 
         while (rs.next()){
-            //방법 1. TodoVo 객체 생성해서 넣기
+            //방법 1. TodoVo 객체 생성해서 넣기 (builder 이전에 기존에 해오던 방식)
 //            TodoVo vo = new TodoVo();
 //            vo.setTno(rs.getLong("tno"));
 //            vo.setTitle(rs.getString("title"));

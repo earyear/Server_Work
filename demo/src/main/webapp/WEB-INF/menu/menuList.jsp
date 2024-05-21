@@ -12,12 +12,16 @@
     <title>MenuList-jsp</title>
 </head>
 <body>
+<button><a href="/menuinput">메뉴작성</a></button>
 <ul>
     <c:forEach var="dto" items="${menulist}">
         <li>
+            <span>
+                    <a href="/menuRead?no=${dto.no}">${dto.no}</a>
+                </span>
                 ${dto}
         </li>
-    </c:forEach>-
+    </c:forEach>
 </ul>
 </body>
 </html>
