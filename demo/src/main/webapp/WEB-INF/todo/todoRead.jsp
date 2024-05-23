@@ -22,6 +22,7 @@
 <div>
     <input type="checkbox" name="finished" ${sample.finished ? "checked":""} onClick="return false" >
 </div>
+
 <%--방법1--%>
 <form method="get" action="/todo/update">
     <input type="hidden" name="tno" value="${sample.tno}">
@@ -30,11 +31,15 @@
         <button type="submit">수정하기</button>
     </div>
 </form>
+
+
 <%--방법2 링크로 해당 수정폼 이동하기.--%>
 <div>
     <h3>방법2, 수정폼 이동</h3>
     <a href="/todo/update?tno=${sample.tno}">수정폼이동</a>
 </div>
+
+
 <%--방법3--%>
 <%--자바스크립트의 코드 이용해서. 처리하기. --%>
 <div>

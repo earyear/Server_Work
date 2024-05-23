@@ -6,6 +6,15 @@
 </head>
 <body>
 <h1>todolist</h1>
+<%--<h2>${mid}님 환영합니다!</h2>--%>
+<h2>${memberDTO.mname}님 환영합니다!</h2>
+<div>
+    <form method="post" action="/logout">
+        <button type="submit">로그아웃</button>
+<%--        <input type="button" id="logout" value="로그아웃">--%>
+    </form>
+
+</div>
 <%--서버에서 넘겨 받은 임시 더미 리스트 사용해보기.--%>
 <%--EL 표기법으로 \${사용할 변수의 키}, ex(key 이름 : list)--%>
 <%--${list}--%>
