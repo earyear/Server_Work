@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet(name ="readMenu", urlPatterns = "/menuRead")
+@WebServlet(name ="readMenu", urlPatterns = "/menu/Read")
 public class MenuReadController extends HttpServlet {
 
     @Override

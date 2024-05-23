@@ -11,7 +11,7 @@
     <title>menuInput-jsp</title>
 </head>
 <body>
-<form action="/menuinput" method="post">
+<form action="/menu/input" method="post">
     <input type="text" name="menu" value="먹고싶은 메뉴입력">
     <div>
         <input type=date name="dueDate">

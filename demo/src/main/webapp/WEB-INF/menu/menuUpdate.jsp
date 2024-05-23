@@ -7,7 +7,7 @@
 <h1>MenuUpdate화면</h1>
 
 <%--수정--%>
-<form method="post" action="/menuUpdate">
+<form method="post" action="/menu/Update">
     <div>
         <input type="text" name="name" placeholder="메뉴를 입력해주세요." value="${menu.name}" >
     </div>
@@ -21,14 +21,14 @@
 </form>
 
 <%--삭제--%>
-<form method="post" action="/menuDelete">
+<form method="post" action="/menu/Delete">
     <%--  화면에는 안보임. --%>
     <input type="hidden" name="no" value="${menu.no}">
     <button type="submit">삭제하기</button>
 </form>
 
 <%--전체 리스트보기--%>
-<form method="get" action="/menulist">
+<form method="get" action="/menu/list">
     <button type="submit">전체메뉴</button>
 </form>
 

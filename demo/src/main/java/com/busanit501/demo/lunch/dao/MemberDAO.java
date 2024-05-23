@@ -1,4 +1,4 @@
-package com.busanit501.demo.todo.dao;
+package com.busanit501.demo.lunch.dao;
 
 import com.busanit501.demo.todo.domain.MemberVo;
 import lombok.Cleanup;
@@ -8,15 +8,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class MemberDAO {
+    //아이디 비번 DB에서 가져옴.
     public MemberVo getPassword(String id, String pw) throws Exception{
-        String sql="select * from tbl_member where mid=? and mpw=?";
+        String sql="select * from lunch_member where mid=? and mpw=?";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement pstmt = connection.prepareStatement(sql);
         pstmt.setString(1, id);
         pstmt.setString(2, pw);
         @Cleanup ResultSet rs = pstmt.executeQuery();
-        rs.next(); //select 한놈이라서 while문 필요없음
+        rs.next();
 
         MemberVo memberVo = MemberVo.builder()
                 .mid(rs.getString("mid"))
@@ -30,7 +31,7 @@ public class MemberDAO {
 
     //uuid 업데이트
     public void updateUUID(String id, String uuid) throws Exception{
-        String sql="update tbl_member set uuid=? where mid=?";
+        String sql="update lunch_member set uuid=? where mid=?";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -41,9 +42,9 @@ public class MemberDAO {
 
     //하나의 uuid 가져오는 기능
     public MemberVo selectUUID(String uuid) throws Exception{
-        String sql="select * from tbl_member where uuid=?";
+        String sql="select * from lunch_member where uuid=?";
 
-        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup Connection connection = com.busanit501.demo.todo.dao.ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement pstmt = connection.prepareStatement(sql);
         pstmt.setString(1, uuid);
 
@@ -63,7 +64,7 @@ public class MemberDAO {
 
     //회원가입
     public void insert(MemberVo memberVo) throws Exception{
-        String sql="insert into tbl_member(mid, mpw, mname) values(?,?,?) ";
+        String sql="insert into lunch_member(mid, mpw, mname) values(?,?,?) ";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement pstmt = connection.prepareStatement(sql);

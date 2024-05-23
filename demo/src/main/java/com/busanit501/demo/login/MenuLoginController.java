@@ -1,7 +1,7 @@
 package com.busanit501.demo.login;
 
+import com.busanit501.demo.lunch.service.MenuMemberService;
 import com.busanit501.demo.todo.dto.MemberDTO;
-import com.busanit501.demo.todo.service.MemberService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,13 +10,13 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.UUID;
 
-@WebServlet(name = "loginController", urlPatterns = "/login")
-public class LoginController extends HttpServlet {
+@WebServlet(name = "loginmenu", urlPatterns = "/loginmenu")
+public class MenuLoginController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     // 로그인 입력폼으로 전달.
     System.out.println("get 으로 login 처리");
-    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/login/login.jsp");
+    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/login/loginMenu.jsp");
     requestDispatcher.forward(req,resp);
   }
 
@@ -33,12 +33,12 @@ public class LoginController extends HttpServlet {
 
     //DB속 아이디 비번을 가져와서 화면의 아이디 비번과 비교.
     try{
-      MemberDTO memberDTO = MemberService.INSTANCE.getSelectOne(mid, mpw);
+      MemberDTO memberDTO = MenuMemberService.INSTANCE.getSelectOne(mid, mpw);
       if(remember){
         //체크되었다면 UUID생성
         String uuid = UUID.randomUUID().toString();
 
-        MemberService.INSTANCE.updateUUID(mid, uuid); //실제 DB에 데이터 업데이트함
+        MenuMemberService.INSTANCE.updateUUID(mid, uuid); //실제 DB에 데이터 업데이트함
         memberDTO.setUuid(uuid); //임시모델에 같은 uuid 담음
 
         //쿠키에 생성한 uuid 랜덤 문자열 넣기 (쿠키 생성 기본 인스턴스)
@@ -50,27 +50,19 @@ public class LoginController extends HttpServlet {
         HttpSession session = req.getSession();
 
         session.setAttribute("loginInfo", memberDTO);
-        resp.sendRedirect("/todo/list");
+        resp.sendRedirect("/menu/list");
       }
       else {
-        //자동로그인 체크 안했을때
-        HttpSession session = req.getSession();
+          //자동로그인 체크 안했을때
+          HttpSession session = req.getSession();
 
-        session.setAttribute("loginInfo", memberDTO);
-        resp.sendRedirect("/todo/list");
+          session.setAttribute("loginInfo", memberDTO);
+          resp.sendRedirect("/menu/list");
       }
     } catch (Exception e) {
-      resp.sendRedirect("/login?result=error");
+      resp.sendRedirect("/loginmenu?result=error");
 //        throw new RuntimeException(e);
     }
-//
-//    //로그인해야지 세션 생김. 문자열로 처리.
-//    String user = mid + mpw;
-//
-//    HttpSession session = req.getSession();
-//
-//    session.setAttribute("loginInfo", user);
-//    resp.sendRedirect("/todo/list");
   }
 }
 

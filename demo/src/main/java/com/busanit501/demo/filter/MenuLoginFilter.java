@@ -1,7 +1,7 @@
 package com.busanit501.demo.filter;
 
+import com.busanit501.demo.lunch.service.MenuMemberService;
 import com.busanit501.demo.todo.dto.MemberDTO;
-import com.busanit501.demo.todo.service.MemberService;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.*;
@@ -15,8 +15,8 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @Log4j2
-@WebFilter(urlPatterns = "/todo/*")
-public class LoginFilter implements Filter {
+@WebFilter(urlPatterns = "/menu/*")
+public class MenuLoginFilter implements Filter {
 
     private Cookie findCookie(Cookie[] cookies, String cookieName){
 
@@ -57,14 +57,14 @@ public class LoginFilter implements Filter {
 
         //세션에도 없고, 쿠키에도 없다면
         if(cookie==null){
-            resp.sendRedirect("/login");
+            resp.sendRedirect("/loginmenu");
             return;
         }
 
         //쿠키가 존재하는 상황. 쿠키에서 uuid를 가져옴.
         String uuid = cookie.getValue();
         try{
-            MemberDTO memberDTO =MemberService.INSTANCE.selectUUID(uuid);
+            MemberDTO memberDTO = MenuMemberService.INSTANCE.selectUUID(uuid);
 
             //memberDTO가 없다면, 회원이없다면.
             if(memberDTO==null){

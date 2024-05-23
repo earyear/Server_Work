@@ -15,7 +15,7 @@
 <%--<div>--%>
 <%--    <input type="checkbox" name="finished" ${sample.finished ? "checked":""} onClick="return false" >--%>
 <%--</div>--%>
-<form method="get" action="/menuUpdate">
+<form method="get" action="/menu/Update">
     <input type="hidden" name="no" value="${menu.no}">
     <div>
         <button type="submit">수정 하기</button>
@@ -23,7 +23,7 @@
 </form>
 
 <p>
-<form method="get" action="/menulist">
+<form method="get" action="/menu/list">
     <button type="submit">전체 메뉴</button>
 </form>
 

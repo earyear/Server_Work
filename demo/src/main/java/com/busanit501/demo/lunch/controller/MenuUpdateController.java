@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 @Log4j2
-@WebServlet(name ="updateMenu", urlPatterns = "/menuUpdate")
+@WebServlet(name ="updateMenu", urlPatterns = "/menu/Update")
 public class MenuUpdateController extends HttpServlet {
 
     @Override
@@ -48,7 +48,7 @@ public class MenuUpdateController extends HttpServlet {
 
         try {
             MenuService.INSTANCE.update(dto);
-            response.sendRedirect("/menulist");
+            response.sendRedirect("/menu/list");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

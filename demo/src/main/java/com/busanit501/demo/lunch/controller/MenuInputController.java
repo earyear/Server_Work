@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 
-@WebServlet(name = "MenuInputController", urlPatterns = "/menuinput")
+@WebServlet(name = "MenuInputController", urlPatterns = "/menu/input")
 public class MenuInputController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,7 +33,7 @@ public class MenuInputController extends HttpServlet {
       //입력 받은 값 넣기
       try {
           MenuService.INSTANCE.insert(menuDTO);
-          resp.sendRedirect("/menulist");
+          resp.sendRedirect("/menu/list");
       } catch (Exception e) {
           throw new RuntimeException(e);
       }

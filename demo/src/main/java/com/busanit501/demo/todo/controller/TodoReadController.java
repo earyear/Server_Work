@@ -20,6 +20,7 @@ public class TodoReadController extends HttpServlet {
         //찾은 쿠키를 담을 임시 쿠키
         Cookie targetCookie = null;
 
+        //쿠키 있다면.
         if(cookies != null && cookies.length>0){
             for(Cookie cookie : cookies){
                 if(cookie.getName().equals(cookieName)){
@@ -28,6 +29,7 @@ public class TodoReadController extends HttpServlet {
                 }
             }
         }
+        //쿠키가 없다면. 쿠키 설정
         if(targetCookie == null){
             targetCookie = new Cookie(cookieName, "");
             targetCookie.setPath("/");

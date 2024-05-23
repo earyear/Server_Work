@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet(name ="deleteMenu", urlPatterns = "/menuDelete")
+@WebServlet(name ="deleteMenu", urlPatterns = "/menu/Delete")
 public class MenuDeleteController extends HttpServlet {
 
     @Override
@@ -20,7 +20,7 @@ public class MenuDeleteController extends HttpServlet {
         try {
             Long id = Long.parseLong(request.getParameter("no"));
             MenuService.INSTANCE.delete(id);
-            response.sendRedirect("/menulist");
+            response.sendRedirect("/menu/list");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -9,7 +9,7 @@
 <c:if test="${param.result == 'error'}">
   <h1>로그인 에러</h1>
 </c:if>
-<form action="/login" method="post">
+<form action="/loginmenu" method="post">
   <input type="text" name="mid" placeholder="아이디를 입력해주세요.">
   <input type="number" name="mpw" placeholder="패스워드를 입력해주세요.">
 
@@ -19,7 +19,7 @@
   <button type="submit">로그인</button>
 </form>
 
-<form action="/signup" method="get">
+<form action="/signupmenu" method="get">
   <button type="submit">회원가입</button>
 </form>
 
