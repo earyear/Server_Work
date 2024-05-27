@@ -27,14 +27,79 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 
+    //springLegacy
     // https://mvnrepository.com/artifact/org.springframework/spring-core
-    implementation group: 'org.springframework', name: 'spring-core', version: '6.1.8'
-
+    implementation group: 'org.springframework', name: 'spring-core', version: '5.3.19'
     // https://mvnrepository.com/artifact/org.springframework/spring-context
-    implementation group: 'org.springframework', name: 'spring-context', version: '6.1.8'
-
+    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.19'
     // https://mvnrepository.com/artifact/org.springframework/spring-test
-    testImplementation group: 'org.springframework', name: 'spring-test', version: '6.1.8'
+    testImplementation group: 'org.springframework', name: 'spring-test', version: '5.3.19'
+
+    // spring 관련 도구 jdbc : spring-jdbc, spring-tx, 5.3.19로 통합
+    // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+    implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.19'
+    // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
+    implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.3.19'
+    // https://mvnrepository.com/artifact/org.springframework/spring-tx
+    implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.19'
+    // https://mvnrepository.com/artifact/org.springframework/spring-tx
+    implementation group: 'org.springframework', name: 'spring-tx', version: '3.5.16'
+
+//    //mybatis-spring
+//    implementation group: 'org.mybatis', name: 'mybatis-spring', version: '3.0.3'
+//
+//
+
+
+    // JSTL
+    // 설정후, 오른쪽 상단 , 코끼리 싱크 버튼 클릭 해서 , 적용하기.
+    // 주소 변경,
+    implementation group: 'jstl', name: 'jstl', version: '1.2'
+
+    // 마리아 db 드라이버 설치.
+    // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.3.3'
+
+    //롬복 라이브러리 설치
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.32'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.32'
+
+    // test, 단위 테스트에서도, 사용하기.
+    testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.32'
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.32'
+
+    //Hikari Cp 설치
+    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '5.1.0'
+
+    // 모델맵퍼 : DTO <-> VO 간에 변환기.
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.2.0'
+
+    // Log4j2 ,
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '3.0.0-beta2'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '3.0.0-beta2'
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl
+    testImplementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '3.0.0-beta2'
+
+
+
+
+
+//    마이바티스 관련 도구 : mybatis, mybatis-spring, 위의 버전과 무관하지만, 혹시라도
+
+//    mybatis
+// https://mvnrepository.com/artifact/org.mybatis/mybatis
+    implementation group: 'org.mybatis', name: 'mybatis', version: '3.5.16'
+
+//    mybatis-spring
+// https://mvnrepository.com/artifact/org.mybatis/mybatis-spring
+    // 버전 오류 확인, 다운그레이드 함, 24/05/24 5:52 확인.
+    // 5/27 전달
+    implementation group: 'org.mybatis', name: 'mybatis-spring', version: '2.0.7'
+
 
 }
 
