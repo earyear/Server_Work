@@ -10,7 +10,7 @@
     <mvc:annotation-driven></mvc:annotation-driven>
 
 <!--    정적 파일들 위치 설정-->
-    <mvc:resources mapping="/resources/**" location="/resources"></mvc:resources>
+    <mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
 
 <!--    화면을 처리해주는 도구, 뷰 리졸버라는 도구-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

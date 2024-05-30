@@ -1,27 +1,50 @@
 package com.busanit501.springex.controller;
 
 import com.busanit501.springex.dto.TodoDTO;
+import com.busanit501.springex.service.TodoService;
 import lombok.Builder;
+import org.springframework.validation.BindingResult;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @RequestMapping("/todo") //화면상에서 접근하는 URL주소 맵핑해주는 역할 (클래스 앞 O, 메서드 앞 O)
 @Log4j2
+@RequiredArgsConstructor  //lombok 이용해서 주입하기.
 public class TodoController {
-    @RequestMapping("/list")
-    public void list(){
-        log.info("list 화면 테스트 콘솔");
+
+    final TodoService todoService;
+
+
+    @GetMapping ("/list")
+    public void list(Model model){
+        log.info("todo list 조회 화면 테스트 콘솔");
+        List<TodoDTO> dtoList = todoService.listAll();
+        // 서버 -> 화면, 모델
+        model.addAttribute("dtoList", dtoList);
     }
 
-    @RequestMapping(value = "/register",method = RequestMethod.GET)
-    public void register(){
-        log.info("register 등록 화면");
+    @GetMapping(value = "/register")
+    public String register(@Valid TodoDTO todoDTO, BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes){
+        log.info("register 등록 화면 : ");
+
+        // 유효성 검사 실패시에만 동작을함.
+        if(bindingResult.hasErrors()) {
+            log.info("bindingResult.hasErrors() 실행됨. ");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors() );
+            return "redirect:/todo/register";
+        }
+        todoService.insert(todoDTO);
+        return "redirect:/todo/list";
     }
 
     @GetMapping("/ex1") //입력 : ex1?name="lsy"&age=20

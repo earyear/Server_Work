@@ -37,4 +37,8 @@
     </bean>
 
     <mybatis:scan base-package="com.busanit501.springex.mapper"></mybatis:scan>
+
+    <!--  모델 맵퍼 경로 위치 등록하기.-->
+    <context:component-scan base-package="com.busanit501.springex.config"/>
+    <context:component-scan base-package="com.busanit501.springex.service"/>
 </beans>
