@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ngy0428.lunchEx.mapper.LunchMapper">
+    <!--  방금 친 코드는 보통 다 복붙해서 사용하니, 한번 만 타이핑 연습-->
+    <!--  필요한 sql 문장을 아래에다 , 따로 관리를 합니다.-->
+
+    <insert id="insert">
+        insert into tbl_lunch (lunchTitle, dueDate, writer) values (#{lunchTitle}, #{dueDate}, #{writer})
+    </insert>
+
+    <select id="listAll" resultType="com.ngy0428.lunchEx.domain.LunchVO">
+        select * from tbl_lunch order by mno desc
+    </select>
+
+    <select id="getOne" resultType="com.ngy0428.lunchEx.domain.LunchVO">
+        select * from tbl_lunch  where mno = #{mno}
+    </select>
+
+    <delete id="delete">
+        delete from tbl_lunch where mno = #{mno}
+    </delete>
+
+    <update id="update">
+        update tbl_lunch set lunchTitle = #{lunchTitle} , dueDate = #{dueDate} , finished = #{finished} where mno = #{mno}
+    </update>
+
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+<!--mvc 어노테이션을 이용하겠다 라는 의미-->
+<!--  보통은 설정은 복사해서 사용하고, 위의 경로를 잘 안침.-->
+  <mvc:annotation-driven></mvc:annotation-driven>
+
+<!--  정적 파일 들 위치하는 경로 등록. webapp/resource/ -->
+<!--  스프링에서, 정적인 경로는 무시해도 된다. -->
+<!--  예) /todo/list 접근시 항상, 서블릿 컨트롤러를 통해서 접근 가능. -->
+<!--  예) 무시해도 된다는 말은 컨트롤러 안 거치고 , 직접 가능함. -->
+<!--  접근시, http://loacalhost:8080/todo/list-->
+<!--  접근시, http://loacalhost:8080/resources/images/sample.png , 접근 가능함.-->
+  <mvc:resources mapping="/resources/**" location="/resources/"/>
+
+<!--  화면을 처리해주는 도구. 뷰 리졸버라는 도구. -->
+<!--  앞에서 jsp , 화면경로를 직접 명시. -->
+<!--  예) "WEB-INF/todo/list.jsp"-->
+<!--  접두어(prefix) : WEB-INF/, 접미사(suffix) jsp , 미리 등록을해둠. -->
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/WEB-INF/views/"></property>
+    <property name="suffix" value=".jsp"></property>
+  </bean>
+
+<!--  우리가 테스트할 컨트롤러 패키지 경로 위치를 스프링 시스템에 등록하기. -->
+<!--  빈 탐색 경로 등록.-->
+  <context:component-scan base-package="com.ngy0428.lunchEx.controller"/>
+
+
+<!--  웹 브라우저에서 전달된 날짜 포맷이 문자열로 오기 때문에, 받을 때, 문제가 생겨서, -->
+<!--  시스템에 등록해서, 자동 변환 하기위한 설정.-->
+<!--  설정했으면, 시스템에 등록해서, 사용하기. -->
+<!--  설정한 클래스파일 위치 등록-->
+  <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    <property name="formatters">
+      <set>
+        <bean class="com.ngy0428.lunchEx.controller.formatter.LocalDateFormatter"></bean>
+      </set>
+    </property>
+  </bean>
+
+<!--  위에서 설정한 빈(인스턴스) 어노테이션으로 사용할수 있게 지정하는 설정.-->
+  <mvc:annotation-driven conversion-service="conversionService"/>
+
+
+</beans>
