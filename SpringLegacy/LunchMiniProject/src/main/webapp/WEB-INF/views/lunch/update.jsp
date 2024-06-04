@@ -33,10 +33,10 @@
                 <a class="nav-link disabled" aria-disabled="true">Disabled</a>
               </li>
             </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+<%--            <form class="d-flex" role="search">--%>
+<%--              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">--%>
+<%--              <button class="btn btn-outline-success" type="submit">Search</button>--%>
+<%--            </form>--%>
           </div>
         </div>
       </nav>
@@ -55,6 +55,8 @@
 <%--         register.jsp 의 화면을 복붙--%>
   <form method="post" action="/lunch/update">
     <input type="hidden" name="mno" value="${lunchDTO.mno}">
+    <input type="hidden" name="page" value="${pageRequestDTO.page}">
+    <input type="hidden" name="size" value="${pageRequestDTO.size}">
     <div class="mb-3">
       <label for="title" class="form-label">제목</label>
       <input type="text" name="lunchTitle" class="form-control" id="title" placeholder="제목을 입력해주세요." value="${lunchDTO.lunchTitle}" >
@@ -77,28 +79,36 @@
      <div class="mb-3">
       <button type="submit" class="btn btn-primary">수정하기</button>
       <button type="button" class="btn btn-danger">목록가기</button>
+       <button type="button" class="btn btn-warning">삭제하기</button>
     </div>
   </form>
-  <form method="post" action="/lunch/delete">
-    <input type="hidden" name="mno" value="${lunchDTO.mno}">
-    <button type="submit" class="btn btn-warning">삭제하기</button>
-  </form>
+<%--  form 중복 방지를 위해 삭제 form을 button으로 처리--%>
+<%--  <form method="post" action="/lunch/delete">--%>
+<%--    <input type="hidden" name="mno" value="${lunchDTO.mno}">--%>
+<%--    <button type="submit" class="btn btn-warning">삭제하기</button>--%>
+<%--  </form>--%>
 
   <script>
+    const serverValidErrors = {}
+    <c:forEach items = "${errors}" var="error">
+      serverValidErrors['${error.getField()}'] = '${error.defaultMessage}'
+    </c:forEach>
+    console.log(serverValidErrors)
+    // alert("유효성 오류입니다. 입력값 확인해주세요.")
     // form 태그의 요소를 선택하기. -> 기본이 action -> /lunch/update, 변경, post 방식.
-    // const formObject = document.querySelector("form")
-    //
-    // document.querySelector(".btn-warning").addEventListener("click",function(event){
-    //   event.preventDefault()
-    //   event.stopPropagation()
-    //
-    //   formObject.action = "/lunch/delete"
-    //   formObject.method = "post"
-    //   formObject.submit()
-    // }, false)
+    const formObject = document.querySelector("form")
+
+    document.querySelector(".btn-warning").addEventListener("click",function(event){
+      event.preventDefault()
+      event.stopPropagation()
+
+      formObject.action = "/lunch/delete?${pageRequestDTO.link}"
+      formObject.method = "post"
+      formObject.submit()
+    }, false)
 
     document.querySelector(".btn-danger").addEventListener("click", function(event) {
-      self.location = "/lunch/list"
+      self.location = "/lunch/list${pageRequestDTO.link}"
 
     },false);
   </script>

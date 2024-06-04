@@ -2,6 +2,8 @@ package com.ngy0428.lunchEx.service;
 
 
 import com.ngy0428.lunchEx.dto.LunchDTO;
+import com.ngy0428.lunchEx.dto.PageRequestDTO;
+import com.ngy0428.lunchEx.dto.PageResponseDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,8 +39,28 @@ public class LunchServiceTests {
 
   @Test
   public void testListAll() {
-    List<LunchDTO> lunchList = lunchService.listAll();
-    lunchList.forEach(dto -> log.info("dto : " + dto));
+    PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+            .page(1)
+            .size(10)
+            .keyword("오늘")
+            // 검색 조건이, 작성자 또는 제목
+            .types(new String[]{"t","w"})
+            .from(LocalDate.of(2024,5,1))
+            .to(LocalDate.of(2024,5,31))
+            .finished(true)
+            .build();
+
+//    List<LunchDTO> lunchList = lunchService.listAll(pageRequestDTO);
+//    lunchList.forEach(dto -> log.info("dto : " + dto));
+    PageResponseDTO<LunchDTO> pageResponseDTO = lunchService.listAll(pageRequestDTO);
+    log.info("pageResponseDTO : " + pageResponseDTO);
+    // 목록 확인
+    pageResponseDTO.getDtoList().stream().forEach(lunchDTO -> log.info("lunchDTO : " + lunchDTO));
+    // 전체 갯수 확인.
+    log.info("전체 갯수 : " +pageResponseDTO.getTotal() );
+    // PageRequestDTO 내용물 확인.
+    log.info("PageRequestDTO 내용물 확인. : " +pageResponseDTO.getSize() );
+
   }
 
   @Test

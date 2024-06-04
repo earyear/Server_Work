@@ -54,7 +54,6 @@
         <div class="card-body">
 <%--         register.jsp 의 화면을 복붙--%>
 
-<%--    <input type="hidden" name="tno" value="1">--%>
     <div class="mb-3">
       <label for="title" class="form-label">제목</label>
       <input type="text" name="lunchTitle" class="form-control" id="title" placeholder="제목을 입력해주세요." value="${lunchDTO.lunchTitle}" readonly>
@@ -90,21 +89,22 @@
       // event.preventDefault()
       // dom , 전파를 막는 역할.
       // event.stopPropagation()
-      self.location = `/lunch/update?mno=${lunchDTO.mno}`
+      self.location = `/lunch/update?mno=${lunchDTO.mno}&${pageRequestDTO.link}`
       // false : 캡쳐링, 이벤트가 발생한 곳부터 전파.
       // true : 버블링, 위에서 부터 이벤트가 전파.
     },false);
 
     document.querySelector(".btn-danger").addEventListener("click", function(event) {
-           self.location = "/lunch/list"
+           self.location = "/lunch/list?${pageRequestDTO.link}"
 
     },false);
 
-    const serverValidErrors = {}
-    <c:forEach items = "${errors}" var="error">
-    serverValidErrors['${error.getField()}'] = '${error.defaultMessage}'
-    </c:forEach>
-    console.log(serverValidErrors)
+    //현재, 페이지 상세화면 하나 조회하면. read.jsp
+    <%--const serverValidErrors = {}--%>
+    <%--<c:forEach items = "${errors}" var="error">--%>
+    <%--serverValidErrors['${error.getField()}'] = '${error.defaultMessage}'--%>
+    <%--</c:forEach>--%>
+    <%--console.log(serverValidErrors)--%>
   </script>
         </div>
       </div>

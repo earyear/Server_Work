@@ -7,11 +7,15 @@
     <!--  필요한 sql 문장을 아래에다 , 따로 관리를 합니다.-->
 
     <insert id="insert">
-        insert into tbl_lunch (lunchTitle, dueDate, writer) values (#{lunchTitle}, #{dueDate}, #{writer})
+        insert into tbl_lunch (lunchTitle, dueDate, writer, finished) values (#{lunchTitle}, #{dueDate}, #{writer}, #{finished})
     </insert>
 
+<!--    #{skip}은 PageRequestDTO의 getskip()을 동작함.-->
     <select id="listAll" resultType="com.ngy0428.lunchEx.domain.LunchVO">
-        select * from tbl_lunch order by mno desc
+        select * from tbl_lunch
+        #         분리한 검색 필터 sql 사용하기
+        <include refid="search"></include>
+        order by mno desc limit #{skip}, #{size}
     </select>
 
     <select id="getOne" resultType="com.ngy0428.lunchEx.domain.LunchVO">
@@ -25,5 +29,52 @@
     <update id="update">
         update tbl_lunch set lunchTitle = #{lunchTitle} , dueDate = #{dueDate} , finished = #{finished} where mno = #{mno}
     </update>
+
+
+
+    <!--  갯수를 구할 때, 검색과 필터 조건을 이용해서 갯수를 구하기 추가-->
+    <select id="getCount" resultType="int">
+        select count(mno) from tbl_lunch
+
+        #         분리한 검색 필터 sql 사용하기
+        <include refid="search"></include>
+    </select>
+
+    <select id="getCount2" resultType="int">
+        select count(mno) from tbl_lunch
+
+        #         분리한 검색 필터 sql 사용하기
+        <include refid="search"></include>
+    </select>
+
+    <!--  검색 및 필터의 sql  문장을 따로 메서드 처럼 분리해서, -->
+    <!--  간단히 재사용하기.-->
+    <sql id="search">
+        <where>
+            <if test="types != null and types.length>0">
+                <foreach collection="types" item="type" open="(" close=")" separator="or">
+                    <if test="type == 't'.toString()">
+                        lunchTitle like concat('%',#{keyword},'%')
+                    </if>
+                    <if test="type == 'w'.toString()">
+                        writer like concat('%',#{keyword},'%')
+                    </if>
+                </foreach>
+            </if>
+
+            <if test="finished">
+                <trim prefix="and">
+                    finished = 1
+                </trim>
+            </if>
+
+            <if test="from != null and to !=null">
+                <trim prefix="and">
+                    dueDate between #{from} and #{to}
+                </trim>
+            </if>
+
+        </where>
+    </sql>
 
 </mapper>
