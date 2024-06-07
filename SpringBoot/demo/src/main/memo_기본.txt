@@ -1,0 +1,11 @@
+스프링 부트 특징
+- 부트는 레거시에서 파생된 프로젝트 중 일부
+- 수요로 인해, 서브 > 메인으로 자리잡음
+
+부트에서 설정관련은 application.properties 파일에서 다하고
+추가 설정은 @confi
+
+기존의 DDL(create)를 콘솔에서 했다면..
+JPA(영속, 1차캐시테이블, 임시저장소)
+ORM(object relation mapping)
+자바언어 > 데이터베이스 다루기.
