@@ -1,7 +1,6 @@
 package com.busanit501.ngylunchproject.controller;
 
 
-import com.busanit501.ngylunchproject.domain.Lunch;
 import com.busanit501.ngylunchproject.dto.LunchDTO;
 import com.busanit501.ngylunchproject.dto.PageRequestDTO;
 import com.busanit501.ngylunchproject.dto.PageResponseDTO;
@@ -39,37 +38,37 @@ public class LunchController {
         model.addAttribute("responseDTO", responseDTO);
 
     } //list 닫는 부분
-//
-//    //글쓰기 폼
-//    @GetMapping("/register")
-//    public void registerForm() {
-//    }
-//
-//    //글쓰기 처리
-//    @PostMapping("/register")
-//    public String register(@Valid LunchDTO lunchDTO
-//            , BindingResult bindingResult
-//            , RedirectAttributes redirectAttributes
-//            , Model model) {
-//        // 입력중 유효성 체크에 해당 될 때
-//        if(bindingResult.hasErrors()) {
-//            log.info("register 중 오류 발생.");
-//            redirectAttributes.addFlashAttribute(
-//                    "errors", bindingResult.getAllErrors());
-//            return "redirect:/lunch/register";
-//        }
-//        log.info("화면에서 입력 받은 내용 확인 : " + lunchDTO);
-//
-//        //화면 -> 서버 -> 서비스 -> 레포지토리 -> 디비, 입력후, 게시글 번호 가져오기
-//        //화면 <- 서버 <- 서비스 <- 레포지토리 <- 디비
-//        Long bno = lunchService.register(lunchDTO);
-//
-//        // 글쓰기 후, 작성된 게시글 번호 -> 화면 , 임시로 전달.(1회용)
-//        redirectAttributes.addFlashAttribute("result",bno);
-//        redirectAttributes.addFlashAttribute("resultType","register");
-//        return "redirect:/lunch/list";
-//
-//    }
+
+    //글쓰기 폼
+    @GetMapping("/register")
+    public void registerForm() {
+    }
+
+    //글쓰기 처리
+    @PostMapping("/register")
+    public String register(@Valid LunchDTO lunchDTO
+            , BindingResult bindingResult
+            , RedirectAttributes redirectAttributes
+            , Model model) {
+        // 입력중 유효성 체크에 해당 될 때
+        if(bindingResult.hasErrors()) {
+            log.info("register 중 오류 발생.");
+            redirectAttributes.addFlashAttribute(
+                    "errors", bindingResult.getAllErrors());
+            return "redirect:/lunch/register";
+        }
+        log.info("화면에서 입력 받은 내용 확인 : " + lunchDTO);
+
+        //화면 -> 서버 -> 서비스 -> 레포지토리 -> 디비, 입력후, 게시글 번호 가져오기
+        //화면 <- 서버 <- 서비스 <- 레포지토리 <- 디비
+        Long bno = lunchService.register(lunchDTO);
+
+        // 글쓰기 후, 작성된 게시글 번호 -> 화면 , 임시로 전달.(1회용)
+        redirectAttributes.addFlashAttribute("result",bno);
+        redirectAttributes.addFlashAttribute("resultType","register");
+        return "redirect:/lunch/list";
+
+    }
 
     //하나 조회 = 상세화면, read
     // 준비물, 해당 게시글 번호로 조회한 데이터가 필요함.
@@ -135,6 +134,5 @@ public class LunchController {
         return "redirect:/lunch/list?"+pageRequestDTO.getLink2();
 
     }
-
 
 } // lunchController 닫는 부분

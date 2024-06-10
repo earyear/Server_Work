@@ -50,7 +50,7 @@ public class LunchRepositoryTest {
 
   @Test
   public void testUpdate() {
-    Long bno = 100L;
+    Long bno = 50L;
     Optional<Lunch> result = lunchRepository.findById(bno);
     Lunch lunch = result.orElseThrow();
 

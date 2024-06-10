@@ -8,8 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity
 
+@Entity
 public class Lunch extends BaseEntity{
     // pk, = not null, primary key
     @Id
