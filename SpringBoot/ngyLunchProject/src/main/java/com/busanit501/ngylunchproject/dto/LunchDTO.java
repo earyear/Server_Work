@@ -1,4 +1,4 @@
-package com.busanit501.demo.dto;
+package com.busanit501.ngylunchproject.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 
 //서버 유효성 체크
-public class BoardDTO {
+public class LunchDTO {
   private Long bno;
 
   @NotEmpty

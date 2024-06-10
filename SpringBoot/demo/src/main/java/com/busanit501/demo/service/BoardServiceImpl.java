@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 @Log4j2
 @RequiredArgsConstructor
-// all or nothing,
+// all or nothing, 전부 혹은 아무것도 못함.
 @Transactional
 public class BoardServiceImpl implements BoardService {
 
@@ -47,7 +47,7 @@ public class BoardServiceImpl implements BoardService {
   public void update(BoardDTO boardDTO) {
     Optional<Board> result= boardRepository.findById(boardDTO.getBno());
     Board board = result.orElseThrow();
-    //변경한다면. 제목과 내용, 작성자 변경
+    //변경한다면. 제목, 내용, 작성자 변경
     board.changeTitleAndContent(boardDTO.getTitle(), boardDTO.getContent(), boardDTO.getWriter());
     boardRepository.save(board);
   }
