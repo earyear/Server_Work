@@ -1,7 +1,10 @@
 package com.busanit501.ngylunchproject.repository.search;
 
 import com.busanit501.ngylunchproject.domain.QLunch;
+import com.busanit501.ngylunchproject.domain.QReply;
+import com.busanit501.ngylunchproject.dto.LunchListReplyCountDTO;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
 import com.busanit501.ngylunchproject.domain.Lunch;
 import lombok.extern.log4j.Log4j2;
@@ -94,5 +97,80 @@ public class LunchSearchImpl extends QuerydslRepositorySupport implements LunchS
         Page<Lunch> result = new PageImpl<>(list, pageable,count);
 
         return result;
+    }
+
+    
+    @Override
+    public Page<LunchListReplyCountDTO> searchWithReplyCount(String[] types, String keyword, Pageable pageable) {
+        // Querydsl 버전에 조인하는 방법.
+        QLunch lunch = QLunch.lunch;
+        QReply reply = QReply.reply;
+
+        //Left Join(Outer join)
+        //추가
+        JPQLQuery<Lunch> query = from(lunch);
+        query.leftJoin(reply).on(reply.lunch.eq(lunch));
+
+        query.groupBy(lunch);
+        ////추가
+
+        //검색 조건, 페이징 조건도, 적용을해야함.
+        // 조건절을 자바 문법으로만 구성해서, 전달해보기.
+        if ((types != null && types.length > 0) && keyword != null) {
+            // BooleanBuilder , 조건절의 옵션을 추가하기 쉽게하는 도구.
+            log.info("조건절 실행여부 확인 1 ");
+            BooleanBuilder   booleanBuilder = new BooleanBuilder();
+            //String[] types = {"t","w" }
+            for (String type : types) {
+                switch (type) {
+                    case "t":
+                        log.info("조건절 실행여부 확인 2 :  title");
+                        booleanBuilder.or(lunch.title.contains(keyword));
+                        break;
+                    case "w":
+                        log.info("조건절 실행여부 확인 2 :  writer");
+                        booleanBuilder.or(lunch.writer.contains(keyword));
+                        break;
+                    case "c":
+                        log.info("조건절 실행여부 확인 2 :  content");
+                        booleanBuilder.or(lunch.content.contains(keyword));
+                        break;
+                } //switch
+            } // end for
+            // BooleanBuilder를 적용하기.
+            query.where(booleanBuilder);
+        } // end if
+
+
+        // bno >0 보다 큰 조건.
+        query.where(lunch.bno.gt(0L));
+
+
+        //Querydsl -> JPQL 를 이용해서 디비에 명령을 전달.
+        // 편의기능, JPQL 이용해서, 해당 데이터의 결과를 자동으로 모델에 맵핑 해주는기능.
+        // Projection 기능. , 자동으로 조회된 데이터 결과를 변환 해주기, DTO로
+
+        ////추가
+        JPQLQuery<LunchListReplyCountDTO> dtoQuery = query.select(
+                Projections.bean(LunchListReplyCountDTO.class,
+                        lunch.bno,
+                        lunch.title,
+                        lunch.writer,
+                        lunch.regDate,
+                        reply.count().as("replyCount"))
+        );
+
+
+        // 페이징 처리 적용하기.
+        // query -> dtoQuery 수정.
+        this.getQuerydsl().applyPagination(pageable, dtoQuery);
+
+        // 위의 조건으로 디비에서 정보 가져오기.
+        List<LunchListReplyCountDTO> dtoList = dtoQuery.fetch();
+        // 조회된 데이터의 갯수
+        long count = dtoQuery.fetchCount();
+
+        return new PageImpl<>(dtoList, pageable, count);
+
     }
 }

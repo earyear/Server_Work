@@ -3,6 +3,7 @@ package com.busanit501.ngylunchproject.service;
 
 import com.busanit501.ngylunchproject.dto.LunchDTO;
 import com.busanit501.ngylunchproject.domain.Lunch;
+import com.busanit501.ngylunchproject.dto.LunchListReplyCountDTO;
 import com.busanit501.ngylunchproject.dto.PageRequestDTO;
 import com.busanit501.ngylunchproject.dto.PageResponseDTO;
 import jakarta.transaction.Transactional;
@@ -83,6 +84,27 @@ public class LunchServiceImpl implements LunchService {
     PageResponseDTO pageResponseDTO = PageResponseDTO.<LunchDTO>withAll()
             .pageRequestDTO(pageRequestDTO)
             .dtoList(dtoList)
+            .total((int) result.getTotalElements())
+            .build();
+
+    return pageResponseDTO;
+  }
+
+  @Override
+  public PageResponseDTO<LunchListReplyCountDTO> listWithReplyCount(PageRequestDTO pageRequestDTO) {
+    String[] types = pageRequestDTO.getTypes();
+    String keyword = pageRequestDTO.getKeyword();
+    Pageable pageable = pageRequestDTO.getPageable("bno");
+
+    // 댓글 갯수를 포함한 목록을 가져오기.
+    Page<LunchListReplyCountDTO> result = lunchRepository.searchWithReplyCount(types,keyword,pageable);
+    // BoardListReplyCountDTO 변환 할 필요가 일단 없다.
+
+    // 서버 -> 화면에 전달할 준비물 준비 작업 완료.
+    // 1)페이지 2) 사이즈 3) 전쳇갯수 4) 검색 결과 내역10개(엔티티-> DTO)
+    PageResponseDTO pageResponseDTO = PageResponseDTO.<LunchListReplyCountDTO>withAll()
+            .pageRequestDTO(pageRequestDTO)
+            .dtoList(result.getContent())
             .total((int) result.getTotalElements())
             .build();
 

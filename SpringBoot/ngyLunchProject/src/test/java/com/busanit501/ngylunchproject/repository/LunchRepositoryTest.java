@@ -42,7 +42,7 @@ public class LunchRepositoryTest {
 
   @Test
   public void testSelect() {
-    Long bno = 100L;
+    Long bno = 2L;
     Optional<Lunch> result = lunchRepository.findById(bno);
     Lunch lunch = result.orElseThrow();
     log.info("조회 결과 : " + lunch);

@@ -2,6 +2,7 @@ package com.busanit501.ngylunchproject.controller;
 
 
 import com.busanit501.ngylunchproject.dto.LunchDTO;
+import com.busanit501.ngylunchproject.dto.LunchListReplyCountDTO;
 import com.busanit501.ngylunchproject.dto.PageRequestDTO;
 import com.busanit501.ngylunchproject.dto.PageResponseDTO;
 import com.busanit501.ngylunchproject.service.LunchService;
@@ -30,8 +31,14 @@ public class LunchController {
 
         log.info("LunchController : /lunch/list  확인 중, pageRequestDTO : " + pageRequestDTO);
 
-        PageResponseDTO<LunchDTO> responseDTO
-                = lunchService.list(pageRequestDTO);
+        //LunchDTO로 받을 때
+//        PageResponseDTO<LunchDTO> responseDTO
+//                = lunchService.list(pageRequestDTO);
+
+        //LunchListReplyCountDTO 댓글개수까지 있는 DTO
+        PageResponseDTO<LunchListReplyCountDTO> responseDTO
+                = lunchService.listWithReplyCount(pageRequestDTO);
+
         // 서버로부터 응답확인.
         log.info("LunchController 확인 중, responseDTO : " + responseDTO);
         // 서버 -> 화면 데이터 전달.

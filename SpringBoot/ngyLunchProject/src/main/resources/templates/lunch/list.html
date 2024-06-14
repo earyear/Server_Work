@@ -97,12 +97,12 @@
                                 <a th:href="|@{/lunch/read(bno =${dto.bno})}&${link}|">
                                 [[${dto.title}]]
                                 </a>
+                                <span class="badge progress-bar-success" style="background-color: #fe010a">
+                                    [[${dto.replyCount}]]
+                                </span>
                             </td>
 
-<!--                            <td>[[${dto.content}]]</a></td>-->
                             <td>[[${dto.writer}]]</td>
-                            <!--                            <td>[[${dto.regDate}]]</td>-->
-                            <!--                            날짜 출력 포맷팅 작업 : yyyy-MM-dd HH:mm:ss 형식-->
                             <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
                         </tr>
 
@@ -196,7 +196,6 @@
         e.preventDefault()
         e.stopPropagation()
         self.location = "/lunch/list"
-
     })
 
     document.querySelector(".pagination").addEventListener("click", function (e) {
